@@ -1,7 +1,17 @@
 import os
+import argparse
 from dotenv import load_dotenv
 
 def main():
+    parser = argparse.ArgumentParser(description="Generate content using Gemini API")
+    parser.add_argument(
+        "prompt",
+        nargs="?",
+        default="Write a very short story about a cat.",
+        help="The prompt to send to the Gemini API (default: 'Write a very short story about a cat.')"
+    )
+    args = parser.parse_args()
+    
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
 
@@ -10,7 +20,7 @@ def main():
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents="Write a story about a cat.",
+        contents=args.prompt,
     )
     print(response.text)
     if response is not None or response.usage_metadata is not None:
