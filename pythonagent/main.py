@@ -6,6 +6,7 @@ import argparse  # For parsing command-line arguments
 from dotenv import load_dotenv  # For loading .env file variables
 from google import genai  # Google's Gemini AI client
 from google.genai import types  # Types for structuring messages
+from functions.get_files_info import get_files_info
 
 def main():
     """
@@ -68,20 +69,22 @@ def main():
     )
 
     # Display the response text (this is always shown)
-    print(response.text)
+    # print(response.text)
     
     # Handle verbose output and usage metadata
     # Check if we have a valid response with usage metadata
-    if response is not None or response.usage_metadata is not None:
-        # Only show verbose details if the --verbose flag was used
-        if args.verbose:
-            print(f"Using model: {model}")
-            print(f"Using API key: {api_key}")
-            print(f"Using prompt: {args.prompt}")
-            print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
-            print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
-    else:
-        print("No usage metadata found")
+    # if response is not None or response.usage_metadata is not None:
+    #     # Only show verbose details if the --verbose flag was used
+    #     if args.verbose:
+    #         print(f"Using model: {model}")
+    #         print(f"Using API key: {api_key}")
+    #         print(f"Using prompt: {args.prompt}")
+    #         print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
+    #         print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
+    # else:
+    #     print("No usage metadata found")
+
+    print(get_files_info("calculator"))
 
 if __name__ == "__main__":
     main()  
