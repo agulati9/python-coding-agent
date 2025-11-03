@@ -3,7 +3,8 @@ import os
 
 def get_files_info(working_directory, directory="."):
     """
-    Lists all files and directories in the specified directory with their sizes.
+    
+     function that can get the contents of a directory. It lists all files and directories in the specified directory with their sizes.
     
     Args:
         working_directory: The base working directory (security boundary)

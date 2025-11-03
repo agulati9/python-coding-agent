@@ -84,7 +84,9 @@ def main():
     # else:
     #     print("No usage metadata found")
 
-    print(get_files_info("calculator"))
+    # print(get_files_info("calculator", "pkg"))
+    # print(get_files_info("calculator"))
+
 
 if __name__ == "__main__":
     main()  
