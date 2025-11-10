@@ -19,12 +19,37 @@ def run_python_file(working_directory, file_path, args=[]):
     
     try:
         # Run the Python file with the given arguments (30s timeout)
+        # capture_output=True captures both stdout and stderr
+        # text=True returns strings instead of bytes
         completed_process = subprocess.run(
             ["python", target_path, *args], 
             cwd=working_directory,
-            timeout=30
+            timeout=30,
+            capture_output=True,
+            text=True
         )
-        return f'Successfully ran "{file_path}" with arguments {args}'
+        
+        # Format the output
+        output_parts = []
+        
+        # Add stdout if present
+        if completed_process.stdout:
+            output_parts.append(f"STDOUT:\n{completed_process.stdout}")
+        
+        # Add stderr if present
+        if completed_process.stderr:
+            output_parts.append(f"STDERR:\n{completed_process.stderr}")
+        
+        # Check if process exited with non-zero code
+        if completed_process.returncode != 0:
+            output_parts.append(f"Process exited with code {completed_process.returncode}")
+        
+        # If no output was produced at all
+        if not output_parts:
+            return "No output produced."
+        
+        return "\n\n".join(output_parts)
+        
     except subprocess.TimeoutExpired:
         return f'Error: "{file_path}" execution timed out after 30 seconds'
     except Exception as e:
