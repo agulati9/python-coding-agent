@@ -11,7 +11,7 @@ def run_python_file(working_directory, file_path, args=[]):
     
     # Validate that the resolved target path is a file
     if not os.path.isfile(target_path):
-        return f'Error: "{file_path}" is not a file'
+        return f'File "{file_path}" not found'
     
     # Validate that the resolved target path is a Python file
     if not target_path.endswith(".py"):
